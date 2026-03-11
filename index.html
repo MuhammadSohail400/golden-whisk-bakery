@@ -20,6 +20,11 @@
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+#product-grid > div {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
     </style>
 </head>
 
@@ -226,7 +231,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
                 <div class="relative z-10">
-                    <div class="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-amber-100 group hover:bg-amber-800 transition-colors duration-300">
+                    <div class="w-20 h-20 bg-amber-50 rounded-fl flex items-center justify-center mx-auto mb-6 border-2 border-amber-100 group hover:bg-amber-800 transition-colors duration-300">
                         <span class="text-3xl group-hover:scale-110 transition-transform">🛒</span>
                     </div>
                     <h3 class="text-xl font-bold mb-2 italic">Select Your Treats</h3>
@@ -577,4 +582,4 @@ onSnapshot(doc(db, "settings", "site_config"), (docSnap) => {
 });
 </script>
 </body>
-</html>
+</html>ul

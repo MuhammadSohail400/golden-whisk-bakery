@@ -37,6 +37,44 @@ if(dateInput) {
 }
 
 // 5. MODAL LOGIC (Details & Quantity)
+// 4.5 RENDER PRODUCTS LOGIC (Optimized for Speed)
+// Is function ko apne JS file ke bilkul niche paste karein
+window.renderProducts = function(dataToShow) {
+    const container = document.getElementById('product-grid');
+    if (!container) return;
+
+    container.innerHTML = '';
+    const productsArray = Array.isArray(dataToShow) ? dataToShow : Object.values(dataToShow);
+
+    productsArray.forEach((p) => {
+        const card = `
+        <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition group cursor-pointer" onclick="openProduct('${p.id}')">
+            <div class="relative h-64 overflow-hidden bg-stone-100">
+                <img src="${p.img}?auto=format&fit=crop&w=500&q=70"
+                     class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-bold text-stone-900">${p.name}</h3>
+                    <span class="text-amber-800 font-bold text-lg">RS. ${p.price}</span>
+                </div>
+                <p class="text-stone-500 text-sm mb-6">${p.desc || 'Freshly baked GoldenWhisk treat.'}</p>
+                <button onclick="event.stopPropagation(); addToCart('${p.id}', '${p.name}', ${p.price}, '${p.img}')"
+                        class="w-full py-3 border-2 border-stone-800 text-stone-800 font-bold rounded-xl hover:bg-stone-800 hover:text-white transition">
+                    Quick Add
+                </button>
+            </div>
+        </div>
+        `;
+        container.insertAdjacentHTML('beforeend', card);
+    });
+}
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM Ready - Initializing Products...");
+    if (typeof products !== 'undefined') {
+        renderProducts(products);
+    }
+});
  window.openProduct=function(id) {
     const p = products[id];
     const modal = document.getElementById('product-modal');
@@ -249,45 +287,25 @@ function toggleMobileMenu() {
 }
 // 2. Filter Function
 window.filterProducts = function(category) {
-    const grid = document.getElementById('product-grid');
-    const cards = grid.querySelectorAll(':scope > div');
     const buttons = document.querySelectorAll('.filter-btn');
 
-    console.log("Filtering for:", category); // Debugging ke liye
-
-    // 1. Buttons UI Update
+    // UI Highlight
     buttons.forEach(btn => {
-        btn.classList.remove('bg-amber-800', 'text-white', 'border-amber-800');
-        btn.classList.add('border-stone-200', 'text-stone-600');
+        btn.classList.remove('bg-amber-800', 'text-white');
+        btn.classList.add('text-stone-600');
     });
+    if (event) event.currentTarget.classList.add('bg-amber-800', 'text-white');
 
-    // Jis button par click hua usay highlight karein (Current click event se)
-    if (event && event.currentTarget) {
-        event.currentTarget.classList.add('bg-amber-800', 'text-white', 'border-amber-800');
-        event.currentTarget.classList.remove('border-stone-200', 'text-stone-600');
+    // Filter Logic
+    const selectedCat = category.toLowerCase().trim();
+    if (selectedCat === 'all') {
+        renderProducts(window.products);
+    } else {
+        const filtered = Object.values(window.products).filter(p =>
+            p.category.toLowerCase().trim() === selectedCat
+        );
+        renderProducts(filtered);
     }
-
-    // 2. Logic: Cards ko show/hide karein
-    cards.forEach(card => {
-        const productID = card.getAttribute('data-id');
-        const pData = window.products[productID];
-
-        if (!pData) {
-            console.warn("No data found for ID:", productID);
-            return;
-        }
-
-        const pCat = pData.category.toLowerCase().trim();
-        const selectedCat = category.toLowerCase().trim();
-
-        if (selectedCat === 'all' || pCat === selectedCat) {
-            card.classList.remove('hidden');
-            card.style.display = "block"; // Extra safety
-        } else {
-            card.classList.add('hidden');
-            card.style.display = "none";
-        }
-    });
 }
 // 3. Search Function
 window.searchProducts=function() {
@@ -339,3 +357,22 @@ window.sendCustomOrder = function() {
     // Naye tab mein WhatsApp kholna
     window.open(whatsappUrl, '_blank');
 };
+const initProducts = () => {
+    console.log("Checking for products data...");
+    const data = window.products || products; // Dono options check karein
+
+    if (data) {
+        console.log("Data found! Rendering now...");
+        renderProducts(data);
+    } else {
+        console.error("Data still not found. Retrying in 500ms...");
+        setTimeout(initProducts, 500); // Agar data nahi mila toh thori dair baad phir check karein
+    }
+};
+
+// Jab DOM ready ho jaye tab start karein
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProducts);
+} else {
+    initProducts();
+}
