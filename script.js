@@ -51,7 +51,7 @@ if(dateInput) {
             <div class="md:w-1/2 p-10 bg-white">
                 <span class="text-amber-700 font-bold text-xs uppercase tracking-widest font-sans">Freshly Baked</span>
                 <h2 class="serif text-4xl mb-4 mt-2 font-bold text-stone-900">${p.name}</h2>
-                <p class="text-amber-800 font-bold text-2xl mb-4 italic">₹${p.price}</p>
+                <p class="text-amber-800 font-bold text-2xl mb-4 italic">RS. ${p.price}</p>
                 <p class="text-stone-500 mb-8 leading-relaxed font-sans">${p.desc}</p>
 
                 <div class="flex items-center gap-4 mb-6">
@@ -131,7 +131,7 @@ window.renderCart=function () {
 
     if (cart.length === 0) {
         container.innerHTML = `<p class="text-center text-stone-400 mt-10">Your basket is empty.</p>`;
-        totalElement.innerText = `₹0`;
+        totalElement.innerText = `RS. 0`;
         return;
     }
 
@@ -142,14 +142,14 @@ window.renderCart=function () {
                 <img src="${item.img}" class="w-20 h-20 object-cover rounded-xl shadow-sm">
                 <div class="flex-1">
                     <h4 class="font-bold text-stone-900">${item.name}</h4>
-                    <p class="text-stone-500 text-sm">₹${item.price} x ${item.qty}</p>
+                    <p class="text-stone-500 text-sm">RS.${item.price} x ${item.qty}</p>
                 </div>
                 <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600 font-bold">×</button>
             </div>
         `;
     }).join('');
 
-    totalElement.innerText = `₹${total}`;
+    totalElement.innerText = `RS. ${total}`;
 }
 
 // 3. Remove Item

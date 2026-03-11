@@ -35,7 +35,7 @@
             <h2 class="serif text-2xl mb-6 text-stone-900">Manage Inventory</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input type="text" id="p-name" placeholder="Product Name" class="p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
-                <input type="number" id="p-price" placeholder="Price (₹)" class="p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+                <input type="number" id="p-price" placeholder="Price (RS.)" class="p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
                 <select id="p-category" class="p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none">
                     <option value="cakes">Cakes</option>
                     <option value="breads">Breads</option>
@@ -168,7 +168,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/fireba
                         <img src="${p.img}" class="w-12 h-12 rounded-lg object-cover bg-stone-200">
                         <div>
                             <h4 class="font-bold text-stone-900">${p.name}</h4>
-                            <p class="text-xs text-stone-500">₹${p.price} • ${p.category}</p>
+                            <p class="text-xs text-stone-500">RS.${p.price} • ${p.category}</p>
                         </div>
                     </div>
                     <button onclick="deleteProduct('${docSnap.id}')" class="text-red-400 hover:text-red-600 text-sm font-bold underline">Delete</button>
