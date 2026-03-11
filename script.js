@@ -45,8 +45,8 @@ if(dateInput) {
 
     content.innerHTML = `
         <div class="flex flex-col md:flex-row">
-            <div class="w-full md:w-1/2 h-64 sm:h-80 md:h-[500px] overflow-hidden bg-stone-100 shrink-0">
-                <img src="${p.img}" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105">
+            <div class="w-full md:w-1/2 h-64 sm:h-80 md:h-[500px] skeleton overflow-hidden bg-stone-100 shrink-0">
+                <img src="${p.img}?auto=format&fit=crop&w=600&q=75" loading="lazy" onload="this.parentElement.classList.remove('skeleton')" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105">
             </div>
             <div class="md:w-1/2 p-10 bg-white">
                 <span class="text-amber-700 font-bold text-xs uppercase tracking-widest font-sans">Freshly Baked</span>
