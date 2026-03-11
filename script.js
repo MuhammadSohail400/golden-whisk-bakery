@@ -161,40 +161,45 @@ window.removeFromCart=function(index) {
 
 // 4. THE BUSINESS SOLUTION: WhatsApp Order Generator
 window.sendWhatsAppOrder = function() {
-    // Sirf Cart Drawer wali unique IDs use karein
-    const name = document.getElementById('cart-cust-name').value;
-    const address = document.getElementById('cart-cust-address').value;
+    const name = document.getElementById('cart-cust-name').value.trim();
+    const address = document.getElementById('cart-cust-address').value.trim();
     const date = document.getElementById('cart-delivery-date').value;
     const time = document.getElementById('cart-delivery-time').value;
 
     const phoneNumber = window.siteWhatsApp || "923110297772";
 
-    // Validation
-    if (cart.length === 0) return showToast("Basket is empty!");
-
-    // Yahan check karein ke kya ye variables waqai fill hain
-    if (!name || !address || !date) {
-        showToast("Please fill Name, Address and Date!");
+    if (cart.length === 0) {
+        showToast("Your basket is empty!");
         return;
     }
 
-    let message = "🥖 *NEW ORDER: GOLDEN WHISK* \n";
-    message += "--------------------------\n";
+    if (!name || !address || !date) {
+        showToast("Please fill Name, Address, and Delivery Date!");
+        return;
+    }
+
+    // Professional Receipt Formatting
+    let message = "✨ *NEW ORDER: GOLDEN WHISK* ✨\n";
+    message += "━━━━━━━━━━━━━━━━━━\n";
     message += `👤 *Customer:* ${name}\n`;
     message += `📍 *Address:* ${address}\n`;
     message += `📅 *Date:* ${date}\n`;
-    message += `🕒 *Slot:* ${time}\n`;
-    message += "--------------------------\n\n";
-    message += "*ORDER ITEMS:*\n";
+    message += `🕒 *Slot:* ${time || 'Not specified'}\n`;
+    message += "━━━━━━━━━━━━━━━━━━\n\n";
+    message += "🎂 *ORDER ITEMS:*\n";
 
     let total = 0;
-    cart.forEach(item => {
-        message += `• ${item.name} (x${item.qty}) - ₹${item.price * item.qty}\n`;
-        total += item.price * item.qty;
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.qty;
+        message += `${index + 1}. ${item.name}\n`;
+        message += `   _Qty: ${item.qty} x Rs. ${item.price}_ = *Rs. ${itemTotal}*\n\n`;
+        total += itemTotal;
     });
 
-    message += `\n💰 *NET TOTAL: ₹${total}*`;
-    message += `\n\n_Sent via GoldenWhisk Web_`;
+    message += "━━━━━━━━━━━━━━━━━━\n";
+    message += `💰 *TOTAL PAYABLE: Rs. ${total}*\n`;
+    message += "━━━━━━━━━━━━━━━━━━\n\n";
+    message += "✅ _Thank you for choosing GoldenWhisk!_";
 
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
