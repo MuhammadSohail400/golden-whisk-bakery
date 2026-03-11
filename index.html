@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Golden Whisk | Professional Bakery Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .serif { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+
+
+
+<body class="bg-stone-50 text-stone-800">
+
+    <nav class="sticky top-0 z-[60] bg-white/80 backdrop-blur-md border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <div class="flex-shrink-0 flex items-center">
+                <span class="serif text-2xl font-bold text-amber-800 tracking-tight">GoldenWhisk.</span>
+            </div>
+
+            <div class="hidden md:flex space-x-8 font-medium text-stone-600">
+                <a href="#" class="hover:text-amber-700 transition">Home</a>
+                <a href="#menu-section" class="hover:text-amber-700 transition">Our Menu</a>
+                <a href="#custom-cake" class="hover:text-amber-700 transition">Custom Cakes</a>
+                <a href="#footer-section" class="hover:text-amber-700 transition">Location</a>
+            </div>
+
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <button onclick="toggleCart()" class="relative p-2 text-stone-600 hover:text-amber-700 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span id="cart-count" class="absolute top-0 right-0 bg-amber-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">0</span>
+                </button>
+
+                <a href="#menu-section" class="hidden sm:block bg-amber-800 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-amber-900 transition shadow-lg shadow-amber-900/20">
+                    Order Online
+                </a>
+
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-stone-600 focus:outline-none">
+                    <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path id="icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white shadow-xl border-t border-stone-100 animate-in slide-in-from-top duration-300">
+        <div class="flex flex-col p-6 space-y-4 font-medium text-stone-600">
+            <a href="#" onclick="toggleMobileMenu()" class="hover:text-amber-700 py-2 border-b border-stone-50">Home</a>
+            <a href="#menu-section" onclick="toggleMobileMenu()" class="hover:text-amber-700 py-2 border-b border-stone-50">Our Menu</a>
+            <a href="#custom-cake" onclick="toggleMobileMenu()" class="hover:text-amber-700 py-2 border-b border-stone-50">Custom Cakes</a>
+            <a href="#footer-section" onclick="toggleMobileMenu()" class="hover:text-amber-700 py-2 border-b border-stone-50">Location</a>
+            <button onclick="scrollToSection('menu-section'); toggleMobileMenu();" class="w-full bg-amber-800 text-white py-3 rounded-xl font-bold mt-4">
+                Order Online Now
+            </button>
+        </div>
+    </div>
+</nav>
+
+    <header class="relative bg-stone-100 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative z-10 py-16 sm:py-24 lg:py-32 lg:w-1/2">
+                <h1 class="serif text-5xl sm:text-7xl leading-tight text-stone-900 mb-6">
+                    Freshly Baked <span class="text-amber-700 italic">Daily</span> for Your Moments.
+                </h1>
+
+                <p class="text-lg text-stone-600 mb-10 max-w-lg leading-relaxed">
+                    Hamari bakery mein har bread aur cake traditional recipes aur organic ingredients se banta hai. Abhi order karein aur fresh delivery payein.
+                </p>
+
+               <div class="flex flex-col sm:flex-row gap-4">
+    <button onclick="scrollToSection('menu-section')" class="px-8 py-4 bg-amber-800 text-white rounded-xl font-bold text-lg hover:scale-105 transition shadow-xl shadow-amber-900/30">
+        Explore Full Menu
+    </button>
+
+    <button onclick="scrollToSection('custom-cake')" class="px-8 py-4 border-2 border-stone-300 text-stone-700 rounded-xl font-bold text-lg hover:bg-stone-200 transition">
+        Book Event Cake
+    </button>
+</div>
+
+                <div class="mt-12 flex items-center space-x-6 text-stone-500 text-sm font-medium">
+                    <div class="flex items-center">✅ 100% Organic</div>
+                    <div class="flex items-center">⚡ Express Delivery</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+            <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+                 src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1200"
+                 alt="Freshly baked bread">
+        </div>
+    </header>
+    <!-- Explore Our Own -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="serif text-3xl md:text-4xl text-stone-900 mb-2">Explore Our Oven</h2>
+            <div class="h-1 w-20 bg-amber-600 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <a href="#" class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-stone-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-3xl mb-4 group-hover:bg-amber-200 transition">🍰</div>
+                <span class="font-bold text-stone-800">Cakes</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-stone-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-3xl mb-4 group-hover:bg-amber-200 transition">🍞</div>
+                <span class="font-bold text-stone-800">Breads</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-stone-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-3xl mb-4 group-hover:bg-amber-200 transition">🍪</div>
+                <span class="font-bold text-stone-800">Cookies</span>
+            </a>
+            <a href="#" class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-stone-100 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-3xl mb-4 group-hover:bg-amber-200 transition">🥐</div>
+                <span class="font-bold text-stone-800">Pastries</span>
+            </a>
+        </div>
+    </section>
+<section id="menu-section" class="py-16 bg-stone-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-10">
+            <div>
+                <span class="text-amber-700 font-bold tracking-widest uppercase text-sm">Chef's Selection</span>
+                <h2 class="serif text-4xl text-stone-900 mt-2">Today's Fresh Specials</h2>
+            </div>
+            <a href="#" class="text-amber-800 font-semibold border-b-2 border-amber-800 hover:text-amber-900 transition mt-4 md:mt-0">View All Products &rarr;</a>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mb-12">
+    <div class="flex flex-col md:flex-row gap-6 justify-between items-center bg-white p-6 rounded-3xl shadow-sm border border-stone-100">
+
+        <div class="flex flex-wrap gap-3 justify-center" id="category-filters">
+            <button onclick="filterProducts('all')" class="filter-btn active-filter px-6 py-2 rounded-full border-2 border-amber-800 bg-amber-800 text-white font-bold transition">All</button>
+            <button onclick="filterProducts('cakes')" class="filter-btn px-6 py-2 rounded-full border-2 border-stone-200 text-stone-600 hover:border-amber-800 transition">Cakes</button>
+            <button onclick="filterProducts('breads')" class="filter-btn px-6 py-2 rounded-full border-2 border-stone-200 text-stone-600 hover:border-amber-800 transition">Breads</button>
+            <button onclick="filterProducts('cookies')" class="filter-btn px-6 py-2 rounded-full border-2 border-stone-200 text-stone-600 hover:border-amber-800 transition">Cookies</button>
+        </div>
+
+        <div class="relative w-full md:w-80">
+            <input type="text" id="product-search" onkeyup="searchProducts()" placeholder="Search treats..."
+                class="w-full pl-12 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none transition">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400">🔍</span>
+        </div>
+    </div>
+</div>
+
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- <div data-id="1" class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition group">
+                <div class="relative h-64 overflow-hidden cursor-pointer" onclick="openProduct(1)">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <span class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Only 5 Left!</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-bold text-stone-900 cursor-pointer" onclick="openProduct(1)">Belgium Chocolate Cake</h3>
+                        <span class="text-amber-800 font-bold text-lg">₹850</span>
+                    </div>
+                    <p class="text-stone-500 text-sm mb-6 line-clamp-2">Double layered dark chocolate with Ganache frosting.</p>
+                    <button onclick="addToCart(1, 'Belgium Chocolate Cake', 850, 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=200')" class="w-full py-3 border-2 border-stone-800 text-stone-800 font-bold rounded-xl hover:bg-stone-800 hover:text-white transition flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                        Quick Add
+                    </button>
+                </div>
+            </div>
+
+            <div data-id="2" class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition group">
+                <div class="relative h-64 overflow-hidden cursor-pointer" onclick="openProduct(2)">
+                    <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <span class="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter italic">Freshly Baked Now</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-bold text-stone-900 cursor-pointer" onclick="openProduct(2)">Artisan Sourdough</h3>
+                        <span class="text-amber-800 font-bold text-lg">₹120</span>
+                    </div>
+                    <p class="text-stone-500 text-sm mb-6 line-clamp-2">Slow-fermented for 24 hours. Crusty outside, soft inside.</p>
+                    <button onclick="addToCart(2, 'Artisan Sourdough', 120, 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=200')" class="w-full py-3 border-2 border-stone-800 text-stone-800 font-bold rounded-xl hover:bg-stone-800 hover:text-white transition flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                        Quick Add
+                    </button>
+                </div>
+            </div>
+
+            <div data-id="3" class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition group border-2 border-amber-200">
+                <div class="relative h-64 overflow-hidden cursor-pointer" onclick="openProduct(3)">
+                    <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <span class="absolute top-4 left-4 bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Gift Favorite</span>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-bold text-stone-900 cursor-pointer" onclick="openProduct(3)">Classic Tea Time Box</h3>
+                        <span class="text-amber-800 font-bold text-lg">₹499</span>
+                    </div>
+                    <p class="text-stone-500 text-sm mb-6 line-clamp-2">Assorted 12 pieces cookies and 4 mini cupcakes.</p>
+                    <button onclick="addToCart(3, 'Classic Tea Time Box', 499, 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=200')" class="w-full py-3 bg-amber-800 text-white font-bold rounded-xl hover:bg-amber-900 transition flex items-center justify-center gap-2 shadow-lg shadow-amber-900/20">
+                        Pre-Order Now
+                    </button>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+</section>
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="serif text-4xl text-stone-900 mb-16">Oven to Door in 3 Steps</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+                <div class="relative z-10">
+                    <div class="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-amber-100 group hover:bg-amber-800 transition-colors duration-300">
+                        <span class="text-3xl group-hover:scale-110 transition-transform">🛒</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 italic">Select Your Treats</h3>
+                    <p class="text-stone-500">Hamara daily menu browse karein aur apni pasand ke fresh items cart mein add karein.</p>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-amber-100 group hover:bg-amber-800 transition-colors duration-300">
+                        <span class="text-3xl group-hover:scale-110 transition-transform">🕒</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 italic">Choose Pickup/Delivery</h3>
+                    <p class="text-stone-500">Apna preferred time slot select karein taaki aapko har cheez garam aur fresh miley.</p>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-amber-100 group hover:bg-amber-800 transition-colors duration-300">
+                        <span class="text-3xl group-hover:scale-110 transition-transform">🚚</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 italic">Enjoy the Freshness</h3>
+                    <p class="text-stone-500">Hum safely aapke ghar tak deliver karte hain ya aap hamare outlet se collect kar sakte hain.</p>
+                </div>
+
+                <div class="hidden md:block absolute top-10 left-0 w-full h-0.5 bg-stone-100 -z-0"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="custom-cake" class="mx-4 sm:mx-8 mb-10">
+    <div class="max-w-7xl mx-auto bg-stone-900 rounded-[3rem] overflow-hidden relative shadow-2xl">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-amber-800/10 skew-x-12 translate-x-20"></div>
+
+        <div class="flex flex-col lg:flex-row items-center relative z-10">
+            <div class="p-10 lg:p-20 lg:w-3/5 text-center lg:text-left">
+                <span class="text-amber-500 font-bold tracking-widest uppercase text-sm mb-4 block">Celebration Specialist</span>
+                <h2 class="serif text-4xl sm:text-6xl text-white mb-6 leading-tight">
+                    Dreaming of a <span class="text-amber-500">Unique</span> Cake?
+                </h2>
+                <p class="text-stone-400 text-lg mb-8 max-w-xl">
+                    Wedding ho ya birthday, hum aapki pasand ka custom cake design karte hain. Niche diye gaye form ko bharein aur apna order confirm karein.
+                </p>
+                <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                    <button onclick="document.getElementById('custom-order-form-container').scrollIntoView({behavior: 'smooth'})"
+                            class="bg-white text-stone-900 px-8 py-4 rounded-full font-bold flex items-center gap-2 hover:bg-amber-500 hover:text-white transition duration-300">
+                        <i class="fa fa-pencil"></i> Start Designing
+                    </button>
+                    <button class="bg-transparent border-2 border-stone-600 text-white px-8 py-4 rounded-full font-bold hover:bg-stone-800 transition">
+                        View Gallery
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:w-2/5 p-10 flex justify-center">
+                <img src="https://media.istockphoto.com/id/1472804545/photo/luxury-cake-table-decorations-for-celebrations.webp?a=1&b=1&s=612x612&w=0&k=20&c=W-cUhHaaAUIOpoO24oKO40iKIZPdc6xqGJDIObYHsAg="
+                     alt="Custom Wedding Cake"
+                     class="rounded-2xl rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="custom-order-form-container" class="py-10 px-4 mb-20">
+    <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-[3rem] shadow-xl border border-stone-100">
+        <div class="text-center mb-10">
+            <h3 class="serif text-3xl text-stone-900 font-bold">Customization Details</h3>
+            <p class="text-stone-500">Fill in the details to get a quote on WhatsApp</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <input type="text" id="cust-name" placeholder="Full Name" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500">
+            <input type="text" id="cust-phone" placeholder="WhatsApp Number" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500">
+
+            <select id="cake-flavor" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-2xl outline-none">
+                <option value="" disabled selected>Select Flavor</option>
+                <option>Chocolate Fudge</option>
+                <option>Red Velvet</option>
+                <option>Lotus Biscoff</option>
+                <option>Vanilla Fruit</option>
+            </select>
+
+            <select id="cake-weight" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-2xl outline-none">
+                <option value="2 Lbs">2 Lbs</option>
+                <option value="3 Lbs">3 Lbs</option>
+                <option value="5 Lbs+">5 Lbs or more</option>
+            </select>
+
+            <div class="md:col-span-2">
+                <label class="block text-xs font-bold text-stone-400 mb-2 ml-2 uppercase">Delivery Date</label>
+                <input type="date" id="delivery-date" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-2xl outline-none">
+            </div>
+
+            <div class="md:col-span-2">
+                <textarea id="cake-msg" placeholder="Any special message or instructions?" rows="3" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+            </div>
+        </div>
+
+        <button onclick="sendCustomOrder()" class="w-full mt-8 bg-green-600 text-white py-5 rounded-2xl font-bold hover:bg-green-700 transition shadow-lg flex justify-center items-center gap-4 text-lg">
+            Confirm & Send to WhatsApp
+        </button>
+    </div>
+</section>
+    <section class="py-20 bg-stone-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="serif text-4xl text-stone-900">What Our Sweet Fans Say</h2>
+                <p class="text-stone-500 mt-4 italic">Har review hamare liye ek inaam hai.</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 max-w-sm hover:shadow-xl transition duration-300">
+                    <div class="flex text-amber-500 mb-4 text-xl">★★★★★</div>
+                    <p class="text-stone-600 mb-6 italic">"Inka Sourdough bread meri har subah ka lazmi hissa hai. Freshness ka koi muqabla nahi!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-stone-200 rounded-full overflow-hidden">
+                            <img src="https://i.pravatar.cc/150?u=sarah" alt="Customer">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-stone-900">Sarah Khan</h4>
+                            <p class="text-xs text-stone-400 font-semibold uppercase tracking-tighter">Verified Foodie</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 max-w-sm hover:shadow-xl transition duration-300 border-t-4 border-t-amber-800">
+                    <div class="flex text-amber-500 mb-4 text-xl">★★★★★</div>
+                    <p class="text-stone-600 mb-6 italic">"Custom birthday cake bilkul waisa hi bana jaisa maine socha tha. Shukriya GoldenWhisk!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-stone-200 rounded-full overflow-hidden">
+                            <img src="https://i.pravatar.cc/150?u=ahmed" alt="Customer">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-stone-900">Ahmed Malik</h4>
+                            <p class="text-xs text-stone-400 font-semibold uppercase tracking-tighter">Repeat Customer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="w-full h-96 mt-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+        <iframe id="google-map" src="" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+</section>
+
+    <footer id="footer-section" class="bg-stone-900 text-stone-300 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-stone-800 pb-12">
+            <div class="col-span-1 md:col-span-1">
+                <span class="serif text-3xl font-bold text-white mb-6 block">GoldenWhisk.</span>
+                <p class="text-sm leading-relaxed mb-6">Quality aur tradition ka milap. Hum rozana 100% natural ingredients se baking karte hain.</p>
+                <div class="flex gap-4">
+                    <a id="insta-link" href="#" class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center hover:bg-amber-800 transition"><span class="sr-only">Instagram</span><i class="fa fa-instagram"></i></a>                   <a href="#" class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center hover:bg-amber-800 transition"><span class="sr-only">Facebook</span><i class="fa fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Shop</h4>
+                <ul id="footer-shop-list" class="space-y-4 text-sm">
+    </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Timing</h4>
+                <ul class="space-y-4 text-sm">
+                    <li class="flex justify-between"><span>Mon - Sat:</span> <span class="text-white text-right">08:00 AM - 10:00 PM</span></li>
+                    <li class="flex justify-between"><span>Sunday:</span> <span class="text-white text-right">09:00 AM - 06:00 PM</span></li>
+                    <li class="flex items-center gap-2 text-green-500 font-bold mt-4 animate-pulse">
+                        <span class="w-2 h-2 bg-green-500 rounded-full"></span> Open Now
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Newsletter</h4>
+                <p class="text-xs mb-4">Get 10% off on your first order.</p>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="Email" class="bg-stone-800 border-none rounded-lg px-4 py-2 w-full text-sm focus:ring-2 focus:ring-amber-500">
+                    <button class="bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-900 transition font-bold">Join</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500">
+            <p>© 2026 GoldenWhisk Bakery. All rights reserved.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:underline">Privacy Policy</a>
+                <a href="#" class="hover:underline">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <div id="product-modal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto md:overflow-hidden rounded-[2rem] flex flex-col md:flex-row relative shadow-2xl" >
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-900 z-10 text-3xl font-bold">&times;</button>
+
+        <div id="modal-content">
+            </div>
+    </div>
+</div>
+
+<div id="cart-drawer" class="fixed inset-0 z-[110] hidden">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="toggleCart()"></div>
+
+    <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col transform transition-transform duration-300">
+        <div class="p-6 border-b border-stone-100 flex justify-between items-center bg-stone-50">
+            <h2 class="serif text-2xl font-bold text-stone-900">Your Basket</h2>
+            <button onclick="toggleCart()" class="text-stone-400 hover:text-stone-900 text-3xl">&times;</button>
+        </div>
+
+        <div id="cart-items-list" class="flex-1 overflow-y-auto p-6 space-y-6">
+            </div>
+
+        <div class="p-6 border-t border-stone-100 bg-stone-50">
+            <div class="flex justify-between items-center mb-4 text-lg font-bold">
+             <div class="p-6 space-y-4 border-t border-stone-100 bg-white">
+    <h3 class="font-bold text-stone-900 text-sm uppercase tracking-wider">Delivery Details</h3>
+
+    <input type="text" id="cart-cust-name" placeholder="Your Full Name" class="w-full p-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+
+    <textarea id="cart-cust-address" placeholder="Complete Delivery Address" rows="2" class="w-full p-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 outline-none"></textarea>
+
+    <div class="grid grid-cols-2 gap-3">
+        <div>
+            <label class="text-[10px] font-bold text-stone-400 uppercase ml-1">Delivery Date</label>
+            <input type="date" id="cart-delivery-date" class="w-full p-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+        </div>
+        <div>
+            <label class="text-[10px] font-bold text-stone-400 uppercase ml-1">Time Slot</label>
+            <select id="cart-delivery-time" class="w-full p-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 outline-none appearance-none">
+                <option value="ASAP">As soon as possible</option>
+                <option value="Morning (10AM - 1PM)">Morning (10AM - 1PM)</option>
+                <option value="Afternoon (1PM - 4PM)">Afternoon (1PM - 4PM)</option>
+                <option value="Evening (4PM - 8PM)">Evening (4PM - 8PM)</option>
+            </select>
+        </div>
+    </div>
+</div>
+                <span>Total Amount:</span>
+                <span id="cart-total" class="text-amber-800">₹0</span>
+            </div>
+            <button onclick="sendWhatsAppOrder()" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition flex items-center justify-center gap-3 shadow-lg">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                Order via WhatsApp
+            </button>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+<script type="module">
+  // 1. Saare Imports ek hi jagah (Duplicates removed)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    onSnapshot,
+    getDoc,
+    doc
+  } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAlgVgnAp3zjtGmisXhf4WQzQi23xqYgBY",
+    authDomain: "goldenwhisk-bakery.firebaseapp.com",
+    projectId: "goldenwhisk-bakery",
+    storageBucket: "goldenwhisk-bakery.firebasestorage.app",
+    messagingSenderId: "747589821456",
+    appId: "1:747589821456:web:ae5bb04b5ef5245c755695"
+  };
+
+  // 2. Initialization
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  window.products = {};
+
+  // 3. Products Listener
+  onSnapshot(collection(db, "products"), (snapshot) => {
+    const grid = document.getElementById('product-grid');
+    if(!grid) return;
+    grid.innerHTML = "";
+    snapshot.forEach((docSnap) => {
+      const p = docSnap.data();
+      const id = docSnap.id;
+      window.products[id] = p;
+      grid.innerHTML += `
+        <div data-id="${id}" class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition group">
+            <div class="relative h-64 overflow-hidden cursor-pointer" onclick="openProduct('${id}')">
+                <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-bold text-stone-900 cursor-pointer" onclick="openProduct('${id}')">${p.name}</h3>
+                    <span class="text-amber-800 font-bold text-lg">₹${p.price}</span>
+                </div>
+                <p class="text-stone-500 text-sm mb-6 line-clamp-2">${p.desc}</p>
+                <button onclick="addToCart('${id}', '${p.name}', ${p.price}, '${p.img}')"
+                        class="w-full py-3 border-2 border-stone-800 text-stone-800 font-bold rounded-xl hover:bg-stone-800 hover:text-white transition">
+                    Quick Add
+                </button>
+            </div>
+        </div>`;
+    });
+    console.log("UI Updated with " + snapshot.size + " products.");
+  });
+
+  // 4. Categories Listener (Filters + Footer)
+  onSnapshot(collection(db, "categories"), (snapshot) => {
+    const filterContainer = document.getElementById('category-filters');
+    const footerList = document.getElementById('footer-shop-list');
+
+    // Filter Buttons Update
+    if(filterContainer) {
+      filterContainer.innerHTML = `<button onclick="filterProducts('all')" class="filter-btn active-filter px-6 py-2 rounded-full border-2 border-amber-800 bg-amber-800 text-white font-bold transition">All</button>`;
+    }
+
+    // Footer List Update
+    if(footerList) footerList.innerHTML = "";
+
+    snapshot.forEach((docSnap) => {
+      const cat = docSnap.data().name;
+
+      // Update Main Filter
+      if(filterContainer) {
+        filterContainer.innerHTML += `<button onclick="filterProducts('${cat}')" class="filter-btn px-6 py-2 rounded-full border-2 border-stone-200 text-stone-600 hover:border-amber-800 transition capitalize">${cat}</button>`;
+      }
+
+      // Update Footer
+      if(footerList) {
+        footerList.innerHTML += `<li><a href="#" onclick="filterProducts('${cat}')" class="hover:text-amber-500 transition capitalize">${cat}</a></li>`;
+      }
+    });
+  });
+
+// index.html ki script mein
+onSnapshot(doc(db, "settings", "site_config"), (docSnap) => {
+    if (docSnap.exists()) {
+        const settings = docSnap.data(); // Variable define kiya
+        window.siteWhatsApp = settings.whatsapp;
+
+        // Instagram update
+        const instaBtn = document.getElementById('insta-link');
+        if (instaBtn && settings.instagram) {
+            instaBtn.href = `https://www.instagram.com/${settings.instagram}`;
+        }
+
+        // Map update (Yahan settings.map_url ab sahi kaam karega)
+        const mapFrame = document.getElementById('google-map');
+        if (mapFrame && settings.map_url) {
+            mapFrame.src = settings.map_url;
+        }
+    }
+});
+</script>
+</body>
+</html>

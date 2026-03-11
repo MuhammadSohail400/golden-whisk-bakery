@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - GoldenWhisk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .serif { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-stone-50">
+
+    <nav class="bg-stone-900 text-white p-6 shadow-xl">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="serif text-2xl font-bold">GoldenWhisk <span class="text-amber-500">Admin</span></h1>
+            <button onclick="location.reload()" class="bg-stone-800 px-4 py-2 rounded-lg text-sm hover:bg-stone-700 transition">Refresh Data</button>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto py-12 px-4">
+        <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-stone-200 mb-12">
+          <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-stone-200 mb-8">
+    <h3 class="font-bold text-stone-800 mb-4">Add New Category</h3>
+    <div class="flex gap-4">
+        <input type="text" id="new-cat-name" placeholder="Category Name (e.g. Pastries)"
+               class="flex-1 p-3 bg-stone-50 border border-stone-200 rounded-xl outline-none">
+        <button onclick="addCategory()" class="bg-stone-900 text-white px-6 rounded-xl font-bold">Add</button>
+    </div>
+    <div id="admin-cat-list" class="flex flex-wrap gap-2 mt-4">
+        </div>
+</div>
+            <h2 class="serif text-2xl mb-6 text-stone-900">Manage Inventory</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input type="text" id="p-name" placeholder="Product Name" class="p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+                <input type="number" id="p-price" placeholder="Price (₹)" class="p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+                <select id="p-category" class="p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none">
+                    <option value="cakes">Cakes</option>
+                    <option value="breads">Breads</option>
+                    <option value="cookies">Cookies</option>
+                </select>
+                <input type="text" id="p-img" placeholder="Image URL" class="p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+                <textarea id="p-desc" placeholder="Description..." class="md:col-span-2 p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500" rows="3"></textarea>
+            </div>
+            <button onclick="saveProduct()" class="mt-8 w-full bg-amber-800 text-white py-4 rounded-xl font-bold hover:bg-amber-900 shadow-lg transition">Save Product to Live Site</button>
+        </div>
+        <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-stone-200 mt-12">
+    <h2 class="serif text-2xl mb-6 text-stone-900">Website Configuration</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <label class="text-xs font-bold text-stone-500 uppercase ml-2">WhatsApp Number (e.g. 923001234567)</label>
+            <input type="text" id="set-whatsapp" placeholder="92..." class="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl mt-1">
+        </div>
+        <div>
+            <label class="text-xs font-bold text-stone-500 uppercase ml-2">Instagram Username</label>
+            <input type="text" id="set-insta" placeholder="goldenwhisk_bakery" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl mt-1">
+        </div>
+        <div class="md:col-span-2">
+            <label class="text-xs font-bold text-stone-500 uppercase ml-2">Shop Address / Timing</label>
+            <input type="text" id="set-address" placeholder="123 Street, Karachi | Open 9am - 9pm" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl mt-1">
+        </div>
+        <div class="mt-4">
+    <label class="block text-sm font-medium text-stone-700">Google Map Embed Link (iframe src)</label>
+    <input type="text" id="set-map-url" placeholder="Paste iframe src here"
+           class="bg-stone-50 border border-stone-200 rounded-lg px-4 py-2 w-full text-sm mt-1 focus:ring-2 focus:ring-amber-500 outline-none">
+</div>
+    </div>
+    <button onclick="updateSettings()" class="mt-8 bg-stone-900 text-white py-4 px-10 rounded-xl font-bold hover:bg-black transition shadow-lg">
+        Update Live Website Settings
+    </button>
+</div>
+
+        <div class="bg-white rounded-[2rem] shadow-sm border border-stone-200 overflow-hidden">
+            <div class="p-6 border-b border-stone-100 bg-stone-50 flex justify-between">
+                <h3 class="font-bold text-stone-800">Live Products</h3>
+                <span id="product-count" class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-bold">0 Items</span>
+            </div>
+            <div id="admin-product-list" class="divide-y divide-stone-100">
+                </div>
+        </div>
+    </main>
+
+   <script type="module">
+   // admin.html ke top par sirf YE ek import honi chahiye
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAlgVgnAp3zjtGmisXhf4WQzQi23xqYgBY",
+        authDomain: "goldenwhisk-bakery.firebaseapp.com",
+        projectId: "goldenwhisk-bakery",
+        storageBucket: "goldenwhisk-bakery.firebasestorage.app",
+        messagingSenderId: "747589821456",
+        appId: "1:747589821456:web:ae5bb04b5ef5245c755695"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // --- 1. PRODUCT FUNCTIONS ---
+    window.saveProduct = async function() {
+        const name = document.getElementById('p-name').value;
+        const price = Number(document.getElementById('p-price').value);
+        const category = document.getElementById('p-category').value;
+        const img = document.getElementById('p-img').value;
+        const desc = document.getElementById('p-desc').value;
+
+        if(!name || !price || !img) return alert("Please fill Name, Price and Image URL!");
+
+        try {
+            await addDoc(collection(db, "products"), {
+                name, price, category, img, desc, createdAt: new Date()
+            });
+            alert("Product Saved Successfully!");
+            document.getElementById('p-name').value = "";
+            document.getElementById('p-price').value = "";
+            document.getElementById('p-img').value = "";
+            document.getElementById('p-desc').value = "";
+        } catch (e) {
+            alert("Error: " + e.message);
+        }
+    };
+
+    window.deleteProduct = async function(id) {
+        if(confirm("Delete this product?")) {
+            await deleteDoc(doc(db, "products", id));
+        }
+    };
+
+    // --- 2. CATEGORY FUNCTIONS ---
+    window.addCategory = async function() {
+        const input = document.getElementById('new-cat-name');
+        const name = input.value.trim();
+        if(!name) return alert("Enter category name!");
+
+        try {
+            await addDoc(collection(db, "categories"), { name: name.toLowerCase() });
+            input.value = "";
+        } catch (e) {
+            console.error("Error adding category:", e);
+        }
+    };
+
+    window.deleteCategory = async function(id) {
+        if(confirm("Delete this category?")) {
+            await deleteDoc(doc(db, "categories", id));
+        }
+    };
+
+    // --- 3. LIVE LISTENERS (Snapshot) ---
+
+    // Products Listener
+    onSnapshot(collection(db, "products"), (snapshot) => {
+        const list = document.getElementById('admin-product-list');
+        const count = document.getElementById('product-count');
+        if(!list) return;
+
+        list.innerHTML = "";
+        count.innerText = `${snapshot.size} Items`;
+
+        snapshot.forEach((docSnap) => {
+            const p = docSnap.data();
+            list.innerHTML += `
+                <div class="p-4 flex items-center justify-between hover:bg-stone-50 transition border-b">
+                    <div class="flex items-center gap-4">
+                        <img src="${p.img}" class="w-12 h-12 rounded-lg object-cover bg-stone-200">
+                        <div>
+                            <h4 class="font-bold text-stone-900">${p.name}</h4>
+                            <p class="text-xs text-stone-500">₹${p.price} • ${p.category}</p>
+                        </div>
+                    </div>
+                    <button onclick="deleteProduct('${docSnap.id}')" class="text-red-400 hover:text-red-600 text-sm font-bold underline">Delete</button>
+                </div>`;
+        });
+    });
+
+    // Categories Listener
+    onSnapshot(collection(db, "categories"), (snapshot) => {
+        const dropdown = document.getElementById('p-category');
+        const adminCatList = document.getElementById('admin-cat-list');
+        if(!dropdown || !adminCatList) return;
+
+        dropdown.innerHTML = `<option value="" disabled selected>Select Category</option>`;
+        adminCatList.innerHTML = "";
+
+        snapshot.forEach((docSnap) => {
+            const cat = docSnap.data().name;
+            const id = docSnap.id;
+
+            dropdown.innerHTML += `<option value="${cat}">${cat.charAt(0).toUpperCase() + cat.slice(1)}</option>`;
+            adminCatList.innerHTML += `
+                <span class="bg-stone-100 px-3 py-1 rounded-full text-sm flex items-center gap-2 border border-stone-200">
+                    ${cat} <button onclick="deleteCategory('${id}')" class="text-red-500 font-bold hover:text-red-700">×</button>
+                </span>`;
+        });
+    });
+
+
+// 1. Load Existing Settings on Page Load
+async function loadSettings() {
+    const docRef = doc(db, "settings", "site_config");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        document.getElementById('set-whatsapp').value = data.whatsapp || "";
+        document.getElementById('set-insta').value = data.instagram || "";
+        document.getElementById('set-address').value = data.address || "";
+        // loadSettings() function ke andar ye line add karein
+document.getElementById('set-map-url').value = data.map_url || "";
+    }
+}
+loadSettings();
+
+// 2. Save/Update Settings
+window.updateSettings = async function() {
+    const whatsapp = document.getElementById('set-whatsapp').value.trim();
+    const instagram = document.getElementById('set-insta').value.trim();
+    const address = document.getElementById('set-address').value.trim();
+    const mapUrl = document.getElementById('set-map-url').value.trim(); // Nayi field
+
+    try {
+        await setDoc(doc(db, "settings", "site_config"), {
+            whatsapp: whatsapp,
+            instagram: instagram,
+            address: address,
+            map_url: mapUrl, // Firebase mein save ho raha hai
+            lastUpdated: new Date()
+        });
+        alert("Website Settings & Map Updated!");
+    } catch (e) {
+        alert("Error: " + e.message);
+    }
+};
+</script>
+</body>
+</html>
